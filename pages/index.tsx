@@ -26,7 +26,7 @@ export default async function Home() {
       e.preventDefault();
       const chatHistory = [...conversation, { role: 'user', content: value }];
 
-      const response = await fetch('/', {
+      const response = await fetch('/api/openAIChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
