@@ -21,14 +21,19 @@ export default function Home() {
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       const chatHistory = [...conversation, { role: 'user', content: value }];
+
       const response = await fetch('/api/openAIChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          
         },
+        
         body: JSON.stringify({ messages: chatHistory }),
       });
+      console.log(response);
 
       const data = await response.json();
       setValue('');
