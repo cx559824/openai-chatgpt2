@@ -1,12 +1,14 @@
 'use client'
 import React, { useRef } from 'react';
 
+
 interface Conversation {
   role: string;
   content: string;
 }
 
-export default function Home() {
+export default async function Home() {
+
 
   const [value, setValue] = React.useState<string>('');
   const [conversation, setConversation] = React.useState<Conversation[]>([]);
@@ -24,11 +26,10 @@ export default function Home() {
       e.preventDefault();
       const chatHistory = [...conversation, { role: 'user', content: value }];
 
-      const response = await fetch('/api/openAIChat', {
+      const response = await fetch('/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          
         },
         
         body: JSON.stringify({ messages: chatHistory }),
