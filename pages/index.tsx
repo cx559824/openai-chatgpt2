@@ -1,15 +1,11 @@
-'use client'
 import React, { useRef } from 'react';
-
 
 interface Conversation {
   role: string;
   content: string;
 }
 
-export default async function Home() {
-
-
+export default function Home() {
   const [value, setValue] = React.useState<string>('');
   const [conversation, setConversation] = React.useState<Conversation[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,18 +19,14 @@ export default async function Home() {
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
       const chatHistory = [...conversation, { role: 'user', content: value }];
-
       const response = await fetch('/api/openAIChat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        
         body: JSON.stringify({ messages: chatHistory }),
       });
-      console.log(response);
 
       const data = await response.json();
       setValue('');
@@ -70,7 +62,6 @@ export default async function Home() {
           >
             Start New Conversation
           </button>
-          </div>
           <div className='textarea'>
             {conversation.map((item, index) => (
               <React.Fragment key={index}>
@@ -97,5 +88,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
+    </div>
   );
 }
